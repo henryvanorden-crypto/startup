@@ -1,5 +1,8 @@
 # CS 260 Notes
 
+## Markdown
+
+# Notes Copied From Example
 [My startup - Simon](https://simon.cs260.click)
 
 ## Helpful links
