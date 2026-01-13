@@ -44,18 +44,23 @@ sequenceDiagram
 - Secure login over HTTPS
 - Ring with dot and target zone clearly displayed
 - Ability for user to stop the dot immediately
--  
+- High scores from all users displayed on leaderboard in live time
 
 ### Technologies
 
 I am going to use the required technologies in the following ways.
 
-- **HTML** - Description here
-- **CSS** - Description here
-- **React** - Description here
-- **Service** - Description here
-- **DB/Login** - Description here
-- **WebSocket** - Description here
+- **HTML** - Uses correct HTML structure for application. Five HTML pages for login, instructions, gameplay, post-game message, and the leaderboard.
+- **CSS** - Application styling that looks good on different screen sizes, uses good whitespace, color choice and contrast.
+- **React** - Implements the frontend logic of the application. React routing is used to switch between authentication, gameplay, and leaderboard views based on user actions and authentication state. React also manages game state, user input, and communication with backend service endpoints.
+- **Service** - A backend service with endpoints for:
+    - Registering, logging in, and logging out users
+    - Submitting completed game scores
+    - Retrieving leaderboard data
+    - Retrieving user-specific statistics (such as best score or recent games)
+    - Calling a third-party service ([](http://colormind.io/api-access/)) endpoint to retrieve a dynamically generated color palette used to style the game interface
+- **DB/Login** - Store authentication information, users, and scores in database.
+- **WebSocket** - As users finish, their scores are broadcast to all other users (if high enough for the leaderboard)
 
 ## 🚀 AWS deliverable
 
