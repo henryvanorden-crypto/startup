@@ -58,7 +58,7 @@ I am going to use the required technologies in the following ways.
     - Submitting completed game scores
     - Retrieving leaderboard data
     - Retrieving user-specific statistics (such as best score or recent games)
-    - Calling a third-party service ([](http://colormind.io/api-access/)) endpoint to retrieve a dynamically generated color palette used to style the game interface
+    - Calling a third-party service ([http://colormind.io/api-access/](http://colormind.io/api-access/)) endpoint to retrieve a dynamically generated color palette used to style the game interface
 - **DB/Login** - Store authentication information, users, and scores in database.
 - **WebSocket** - As users finish, their scores are broadcast to all other users (if high enough for the leaderboard)
 
