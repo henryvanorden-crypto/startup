@@ -27,7 +27,7 @@ Have you ever wanted to improve your precision while having fun and competing wi
 
 ### Design
 
-![Design image pt 1](https://drive.google.com/file/d/1RxH7CN6t7570PkC04M1ck66QV9PAQXnH/view)
+![Design image pt 1](PXL_20260113_071535805.jpg)
 ![Design image pt 2](https://drive.google.com/file/d/1YQgjOei1UrOy9XBGT-EbP_YJgQliM4ma/view?usp=sharing)
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
