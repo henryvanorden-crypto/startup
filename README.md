@@ -41,9 +41,10 @@ sequenceDiagram
 
 ### Key features
 
-- Describe your key feature
-- Describe your key feature
-- Describe your key feature
+- Secure login over HTTPS
+- Ring with dot and target zone clearly displayed
+- Ability for user to stop the dot immediately
+-  
 
 ### Technologies
 
