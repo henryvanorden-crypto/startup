@@ -23,11 +23,12 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 ### Elevator pitch
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+Have you ever wanted to improve your precision while having fun and competing with friends? "On the Dot" is a timing game where players stop a moving dot in a target zone to score points. Each successful hit shrinks the target or increases the speed, steadily raising the difficulty. Missing the zone ends the attempt after which the user can compare their score with others on the leaderboard.
 
 ### Design
 
-![Design image](placeholder.png)
+![Design image pt 1](https://drive.google.com/file/d/1RxH7CN6t7570PkC04M1ck66QV9PAQXnH/view?usp=drive_link)
+![Design image pt 2](https://drive.google.com/file/d/1YQgjOei1UrOy9XBGT-EbP_YJgQliM4ma/view?usp=drive_link)
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
