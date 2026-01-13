@@ -1,30 +1,30 @@
 # CS 260 Notes
 
 ## Markdown
-**Headings:** use \# to make a heading, the more hashtags the smaller the heading\
+**Headings:** use \# to make a heading, the more hashtags the smaller the heading
 
-**Styling:** `** **` for bold text, `_ _` for italics, `~ ~` for strikethrough, `<sub> </sub>` for subscript, `<sup> </sup>` for superscript, `<ins> </ins>` for underlined\
+**Styling:** `** **` for bold text, `_ _` for italics, `~ ~` for strikethrough, `<sub> </sub>` for subscript, `<sup> </sup>` for superscript, `<ins> </ins>` for underlined
 
 **Quote text:** use \> before a line to make something look like ...
 > ...a quote
 
-make sure you have an empty line after the quote though\
+make sure you have an empty line after the quote though
 
-**Quote code:** Use backsticks (\`) to quote code or triple backsticks to make a block of code\
+**Quote code:** Use backsticks (\`) to quote code or triple backsticks to make a block of code
 
-**Color:** `#RRGGBB` or `rgb(R,G,B)` or `hsl(H,S,L)`\
+**Color:** `#RRGGBB` or `rgb(R,G,B)` or `hsl(H,S,L)`
 
-**Links:** put the link text in brackets and the url in parentheses\
+**Links:** put the link text in brackets and the url in parentheses
 
-**Section Links:** instead of urls you can link to sections using a hashtag followed by the heading name except with all the letters lowercased, dashes instead of spaces, and no other special characters\
+**Section Links:** instead of urls you can link to sections using a hashtag followed by the heading name except with all the letters lowercased, dashes instead of spaces, and no other special characters
 
-**Relative Links:** When linking to other files withing your repository use relative links so if someone clones it then it would still work. To do this just write the path from where you are inside the parentheses.\
+**Relative Links:** When linking to other files withing your repository use relative links so if someone clones it then it would still work. To do this just write the path from where you are inside the parentheses.
 
-**Custom anchors:** Use custom anchors to link to non-headings. Like this: `<a name="my-custom-anchor-point"></a>`\
+**Custom anchors:** Use custom anchors to link to non-headings. Like this: `<a name="my-custom-anchor-point"></a>`
 
-**Line Breaks:** Use a backslash at the end of the line\
+**Line Breaks:** Use a backslash at the end of the line
 
-**Images:** Same as linking but put an exclamation point in front of the brackets\
+**Images:** Same as linking but put an exclamation point in front of the brackets
 
 **Lists:** Use `-`, `*`, or `+` to make bulleted lists. Numbered and nested lists are made as you would think.
 1. This is a numbered list
