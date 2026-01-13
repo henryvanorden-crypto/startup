@@ -2,19 +2,30 @@
 
 ## Markdown
 **Headings:** use \# to make a heading, the more hashtags the smaller the heading\
+
 **Styling:** `** **` for bold text, `_ _` for italics, `~ ~` for strikethrough, `<sub> </sub>` for subscript, `<sup> </sup>` for superscript, `<ins> </ins>` for underlined\
+
 **Quote text:** use \> before a line to make something look like ...
 > ...a quote
 
 make sure you have an empty line after the quote though\
+
 **Quote code:** Use backsticks (\`) to quote code or triple backsticks to make a block of code\
+
 **Color:** `#RRGGBB` or `rgb(R,G,B)` or `hsl(H,S,L)`\
+
 **Links:** put the link text in brackets and the url in parentheses\
+
 **Section Links:** instead of urls you can link to sections using a hashtag followed by the heading name except with all the letters lowercased, dashes instead of spaces, and no other special characters\
+
 **Relative Links:** When linking to other files withing your repository use relative links so if someone clones it then it would still work. To do this just write the path from where you are inside the parentheses.\
+
 **Custom anchors:** Use custom anchors to link to non-headings. Like this: `<a name="my-custom-anchor-point"></a>`\
+
 **Line Breaks:** Use a backslash at the end of the line\
+
 **Images:** Same as linking but put an exclamation point in front of the brackets\
+
 **Lists:** Use `-`, `*`, or `+` to make bulleted lists. Numbered and nested lists are made as you would think.
 1. This is a numbered list
       + this is a nested bullet
@@ -24,7 +35,26 @@ make sure you have an empty line after the quote though\
 - [ ] Task 1
 - [x] Task 2
 
-**Mentioning People and Teams:** 
+**Mentioning People and Teams:** use the @ symbol followed by their username or team name and it will notify them
+
+**Emojis:** use `:EMOJICODE:` [emoji cheat sheet](https://github.com/ikatyang/emoji-cheat-sheet/blob/github-actions-auto-update/README.md)
+
+**Footnotes:** Here's an example
+```
+Here is a simple footnote[^1].
+
+A footnote can also have multiple lines[^2].
+
+[^1]: My reference.
+[^2]: To add line breaks within a footnote, add 2 spaces to the end of a line.  
+This is a second line.
+```
+
+**Alerts:** Make text stand out to readers using either `[!NOTE]`, `[!TIP]`, `[!IMPORTANT]`, `[!WARNING]`, or `[!CAUTION]`
+
+**Comments:** `<!-- This is a comment -->`
+
+**Ignore Markdown Formatting:** Use a backslash before the character
 
 
 # Notes Copied From Example
