@@ -4,7 +4,7 @@
 **Headings:** use \# to make a heading, the more hashtags the smaller the heading\
 **Styling:** `** **` for bold text, `_ _` for italics, `~ ~` for strikethrough, `<sub> </sub>` for subscript, `<sup> </sup>` for superscript, `<ins> </ins>` for underlined\
 **Quote text:** use \> before a line to make something look like ...
-> ...a quote\
+> ...a quote\ >
 **Quote code:** Use backsticks (\`) to quote code or triple backsticks to make a block of code\
 **Color:** `#RRGGBB` or `rgb(R,G,B)` or `hsl(H,S,L)`\
 **Links:** put the link text in brackets and the url in parentheses\
