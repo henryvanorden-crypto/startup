@@ -1,8 +1,8 @@
 # CS 260 Notes
 
 ## Markdown
-Headings: use \# to make a heading, the more hashtags the smaller the heading
-Styling: ** ** for bold text, _ _ for italics, ~ ~ for strikethrough, <sub> </sub> for subscript, <sup> </sup> for superscript, '<ins> </ins>' for underlined
+Headings: use \# to make a heading, the more hashtags the smaller the heading\
+Styling: ** ** for bold text, _ _ for italics, ~ ~ for strikethrough, <sub> </sub> for subscript, <sup> </sup> for superscript, '<ins> </ins>' for underlined\
 Quote text: use \> before a line to make something look like ...
 > ...a quote
 
