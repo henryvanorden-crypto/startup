@@ -27,8 +27,7 @@ Do you love trivia? Do you want to learn and have fun competing at the same time
 
 ### Design
 
-![Design image pt 1](PXL_20260113_071535805.jpg)
-![Design image pt 2](PXL_20260113_071554050.jpg)
+![Design image](FactFlow.jpg)
 
 ### Key features
 
