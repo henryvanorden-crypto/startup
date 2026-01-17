@@ -1,4 +1,4 @@
-# Fact Flow
+# Trivia Dash
 
 [My Notes](notes.md)
 
@@ -23,10 +23,10 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 ### Elevator pitch
 
-Do you love trivia? Do you want to learn and have fun competing at the same time? "FactFlow" is a trivia application where players complete a daily trivia quiz and can compare their scores and time with users around the world. Instead of scrolling in your spare time, you can now be learning!
+Do you love trivia? Do you want to learn and have fun competing at the same time? "TriviaDash" is a trivia application where players complete a daily trivia quiz and can compare their scores and time with users around the world. Instead of scrolling in your spare time, you can now be learning!
 
 ### Design
-
+Note: Replace "Fact Flow" with "Trivia Dash"
 ![Design image](FactFlow.jpg)
 
 ### Key features
