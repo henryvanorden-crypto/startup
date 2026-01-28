@@ -68,7 +68,7 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 - [x] **Links** - Each page has links to all the other pages, along with a link to GitHub at the bottom
 - [x] **Text** - Text is mainly used for the instructions (about page), but is also used for placeholders, labels, etc
 - [x] **3rd party API placeholder** - I included a placeholder question to be replaced by Open Trivia Database
-- [ ] **Images** - I did not complete this part of the deliverable.
+- [x] **Images** - Image of the word trivia in the about page
 - [x] **Login placeholder** - Input boxes to enter an email and password. Buttons to create an account or login
 - [x] **DB data placeholder** - Placeholder for leaderboard data represented on the scores page
 - [x] **WebSocket placeholder** - Placeholder seen on the play page, will update when other players start and end games
