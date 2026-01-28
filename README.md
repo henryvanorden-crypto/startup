@@ -63,15 +63,15 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **HTML pages** - I did not complete this part of the deliverable.
-- [ ] **Proper HTML element usage** - I did not complete this part of the deliverable.
-- [ ] **Links** - I did not complete this part of the deliverable.
-- [ ] **Text** - I did not complete this part of the deliverable.
-- [ ] **3rd party API placeholder** - I did not complete this part of the deliverable.
+- [x] **HTML pages** - Four html pages, for login, play, leaderboard, and info
+- [x] **Proper HTML element usage** - Structured the pages using the appropriate elements such as table, navigation, paragraph, and div elements among others
+- [x] **Links** - Each page has links to all the other pages, along with a link to GitHub at the bottom
+- [x] **Text** - Text is mainly used for the instructions (about page), but is also used for placeholders, labels, etc
+- [x] **3rd party API placeholder** - I included a placeholder question to be replaced by Open Trivia Database
 - [ ] **Images** - I did not complete this part of the deliverable.
-- [ ] **Login placeholder** - I did not complete this part of the deliverable.
-- [ ] **DB data placeholder** - I did not complete this part of the deliverable.
-- [ ] **WebSocket placeholder** - I did not complete this part of the deliverable.
+- [x] **Login placeholder** - Input boxes to enter an email and password. Buttons to create an account or login
+- [x] **DB data placeholder** - Placeholder for leaderboard data represented on the scores page
+- [x] **WebSocket placeholder** - Placeholder seen on the play page, will update when other players start and end games
 
 ## 🚀 CSS deliverable
 
