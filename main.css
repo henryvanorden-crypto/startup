@@ -76,14 +76,14 @@ footer a {
 }
 
 
-.quiz-question{
+#quiz-question{
     font-weight: bold;
     font-size: 2rem
 }
 
 .players {
     position: absolute;
-  top: 1rem;
+  bottom: 1rem;
   left: 1rem;
   display: flex;
   flex-direction: column;
