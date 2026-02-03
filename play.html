@@ -24,59 +24,57 @@
       </nav>
     </header>
 
-    <main>
+    <main class="container-fluid back-light text-center">
       <div class="players">
-        Player:
+        Player
         <span class="player-name">Mystery player</span>
-      </div>
-      <ul class="notification">
-        <li class="player-name">Tim started a new game</li>
-        <li class="player-name">Ada started a new game</li>
-        <li class="player-name">Tim scored 337</li>
-      </ul>
-
-      <!-- More formatting with old style HTML -->
-      <br />
-
-      <div>
-        <label for="count">Score</label>
-        <input type="text" id="count" value="--" readonly />
-        <label for="count">/10</label>
+        <div id="player-messages">
+          <div class="event"><span class="player-event">Linus</span> started a new game</div>
+          <div class="event"><span class="player-event">Tim</span> scored 10</div>
+          <div class="event"><span class="system-event">game</span> connected</div>
+        </div>
       </div>
 
-      <div>
-  Timer: <span id="timer">00:00</span>
-</div>
-
-      <br />
-
-      <div>
-        <button>Pause/Play</button>
+      <div class="quiz-header">
+        <div>
+          <label for="count">Score</label>
+          <input type="text" id="count" value="--" readonly />
+          <label for="count">/10</label>
+        </div>
+        <div>
+          Timer: <span id="timer">00:00</span>
+        </div>
+        <div>
+          <button type="submit" class="btn but-color">Pause/Play</button>
+        </div>
       </div>
 
-      <br />
-      
-      <p>
-        Question 1: How many days are in a year?
-      </p>
-
-      <div>
-        <input type="radio" id="radio1" name="varRadio" value="radio1" checked />
-        <label for="radio1">365</label>
-        <input type="radio" id="radio2" name="varRadio" value="radio2" />
-        <label for="radio2">356</label>
-        <input type="radio" id="radio3" name="varRadio" value="radio3" />
-        <label for="radio3">635</label>
-        <input type="radio" id="radio4" name="varRadio" value="radio3" />
-        <label for="radio4">31</label>
+      <div class="quiz">
+        <p class="quiz-question">
+          Question 1: How many days are in a year?
+        </p>
+        <div class="quiz-answers">
+          <label for="radio1">
+          <input type="radio" id="radio1" name="varRadio" value="radio1" checked />
+          365</label>
+          <label for="radio2">
+          <input type="radio" id="radio2" name="varRadio" value="radio2" />
+          356</label>
+          <label for="radio3">
+          <input type="radio" id="radio3" name="varRadio" value="radio3" />
+          635</label>
+          <label for="radio4">
+          <input type="radio" id="radio4" name="varRadio" value="radio3" />
+          31</label>
+        </div>
       </div>
     </main>
 
     <footer>
-      <hr />
-      <span class="text-reset">Henry Van Orden</span>
-      <br />
-      <a href="https://github.com/henryvanorden-crypto/startup">GitHub</a>
+      <div class="container-fluid">
+        <span class="text-reset">Henry Van Orden</span>
+        <a href="https://github.com/henryvanorden-crypto/startup">GitHub</a>
+      </div>
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
   </body>
