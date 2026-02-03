@@ -1,50 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap');
 
+/* main css code*/
 body {
   display: flex;
   flex-direction: column;
   min-width: 375px;
   font-family: 'Lora', serif;
-}
-
-.back-light {
-  background-color: #F0F4EF;
-  color: #344E41;
-}
-
-.back-dark {
-    background-color: #DAD7CD;
-    color: #344E41;
-}
-
-.but-color {
-    background-color: #588157;
-    color: #F0F4EF
-}
-
-.sec-but {
-    background-color: #A3B18A ;
-    color:#344E41;
-}
-
-.form-control:focus {
-  border-color: #588157;         
-  box-shadow: 0 0 0 0.2rem rgba(88, 129, 87, 0.25);
-}
-
-main img {
-  max-width: 100%; 
-  height: auto;    
-  display: block;   
-  margin: 1rem auto; 
-  border-radius: 8px; 
-  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-}
-
-main p {
-  max-width: 600px;
-  margin: 1rem auto 2rem auto;
-  font-size: 1.5rem;
 }
 
 header {
@@ -80,6 +41,23 @@ menu .nav-item {
   padding: 0 0.3em;
 }
 
+footer a {
+  float: right;
+}
+
+@media (max-height: 600px) {
+  header {
+    display: none;
+  }
+  footer {
+    display: none;
+  }
+  main {
+    flex: 1 100vh;
+  }
+}
+
+/*play css*/
 .quiz-header {
     position: absolute;
   top: 1rem;
@@ -113,6 +91,7 @@ menu .nav-item {
   opacity: 0.5;
 }
 
+/* index css */
 .navbar,
 .navbar .navbar-brand,
 .navbar .nav-link {
@@ -129,18 +108,44 @@ menu .nav-item {
   color: #588157;
 }
 
-footer a {
-  float: right;
+/* colors */
+.back-light {
+  background-color: #F0F4EF;
+  color: #344E41;
 }
 
-@media (max-height: 600px) {
-  header {
-    display: none;
-  }
-  footer {
-    display: none;
-  }
-  main {
-    flex: 1 100vh;
-  }
+.back-dark {
+    background-color: #DAD7CD;
+    color: #344E41;
+}
+
+.but-color {
+    background-color: #588157;
+    color: #F0F4EF
+}
+
+.sec-but {
+    background-color: #A3B18A ;
+    color:#344E41;
+}
+
+.form-control:focus {
+  border-color: #588157;         
+  box-shadow: 0 0 0 0.2rem rgba(88, 129, 87, 0.25);
+}
+
+/*about css */
+main img {
+  max-width: 100%; 
+  height: auto;    
+  display: block;   
+  margin: 1rem auto; 
+  border-radius: 8px; 
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+main p {
+  max-width: 600px;
+  margin: 1rem auto 2rem auto;
+  font-size: 1.5rem;
 }
