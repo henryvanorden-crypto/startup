@@ -27,6 +27,11 @@ body {
     color:#344E41;
 }
 
+.form-control:focus {
+  border-color: #588157;          /* your green */
+  box-shadow: 0 0 0 0.2rem rgba(88, 129, 87, 0.25);
+}
+
 header {
   flex: 0 80px;
 }
