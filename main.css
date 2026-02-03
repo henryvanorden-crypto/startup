@@ -28,8 +28,23 @@ body {
 }
 
 .form-control:focus {
-  border-color: #588157;          /* your green */
+  border-color: #588157;         
   box-shadow: 0 0 0 0.2rem rgba(88, 129, 87, 0.25);
+}
+
+main img {
+  max-width: 100%; 
+  height: auto;    
+  display: block;   
+  margin: 1rem auto; 
+  border-radius: 8px; 
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+main p {
+  max-width: 600px;
+  margin: 1rem auto 2rem auto;
+  font-size: 1.5rem;
 }
 
 header {
@@ -51,7 +66,6 @@ footer {
 menu {
   flex: 1;
   display: flex;
-  /*  overwrite Bootstrap so the menu does not wrap */
   flex-direction: row !important;
   list-style: none;
 }
