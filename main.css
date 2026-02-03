@@ -60,6 +60,22 @@ menu .nav-item {
   padding: 0 0.3em;
 }
 
+.navbar,
+.navbar .navbar-brand,
+.navbar .nav-link {
+  color: #344E41;
+}
+
+.navbar .nav-link.active {
+  color: #344E41;
+  font-weight: 600;
+}
+
+.navbar .nav-link:hover,
+.navbar .nav-link:focus {
+  color: #588157;
+}
+
 footer a {
   float: right;
 }
