@@ -17,7 +17,7 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-around;
+  justify-content: center;
   position: relative;
 }
 
@@ -30,6 +30,10 @@ menu {
   display: flex;
   flex-direction: row !important;
   list-style: none;
+}
+
+button {
+  margin: 0 0.1rem;
 }
 
 .navbar-brand {
@@ -67,6 +71,10 @@ footer a {
   align-items: center;
 }
 
+.quiz-header input {
+  margin: 0 0.5rem;
+}
+
 .quiz-answers {
   font-size: 1.5rem; 
   margin-bottom: 1rem; 
@@ -75,6 +83,9 @@ footer a {
   gap: 1rem;
 }
 
+.quiz-answers input[type="radio"] {
+  margin-right: 0.5rem;
+}
 
 #quiz-question{
     font-weight: bold;
