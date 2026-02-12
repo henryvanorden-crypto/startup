@@ -11,7 +11,7 @@ import { About } from './about/about';
 export default function App() {
   return (
     <BrowserRouter>
-  <div className="body bg-dark text-light">
+  <div className="body back-dark text-center">
     <header className="container-fluid">
       <nav className="navbar fixed-top">
         <div className="navbar-brand">TriviaDash</div>
