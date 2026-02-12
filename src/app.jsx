@@ -2,23 +2,35 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './app.css';
 
+import { BrowserRouter, NavLink, Route, Routes } from 'react-router-dom';
+import { Login } from './login/login';
+import { Play } from './play/play';
+import { Scores } from './scores/scores';
+import { About } from './about/about';
+
 export default function App() {
-  return <div className="body bg-dark text-light">
+  return (
+    <BrowserRouter>
+  <div className="body bg-dark text-light">
     <header className="container-fluid">
       <nav className="navbar fixed-top">
-        <a className="navbar-brand" href="index.html">TriviaDash</a>
+        <div className="navbar-brand">TriviaDash</div>
         <menu className="navbar-nav">
-          <li className="nav-item"><a href="index.html" className="nav-link active">Home</a></li>
-          <li className="nav-item"><a href="play.html" className="nav-link">Play</a></li>
-          <li className="nav-item"><a href="scores.html" className="nav-link">Scores</a></li>
-          <li className="nav-item"><a href="about.html" className="nav-link">About</a></li>
+          <li className="nav-item"><NavLink to="/" className="nav-link active">Home</NavLink></li>
+          <li className="nav-item"><NavLink to="play" className="nav-link">Play</NavLink></li>
+          <li className="nav-item"><NavLink to="scores" className="nav-link">Scores</NavLink></li>
+          <li className="nav-item"><NavLink to="about" className="nav-link">About</NavLink></li>
         </menu>
       </nav>
     </header>
 
-    <main className="container-fluid back-light text-center">
-      This is main
-    </main>
+    <Routes>
+  <Route path='/' element={<Login />} exact />
+  <Route path='/play' element={<Play />} />
+  <Route path='/scores' element={<Scores />} />
+  <Route path='/about' element={<About />} />
+  <Route path='*' element={<NotFound />} />
+</Routes>
 
     <footer>
       <div className="container-fluid">
@@ -26,5 +38,11 @@ export default function App() {
         <a href="https://github.com/henryvanorden-crypto/startup">GitHub</a>
       </div>
     </footer>
-    </div>;
+    </div>
+    </BrowserRouter>
+  );
+}
+
+function NotFound() {
+  return <main className="container-fluid bg-secondary text-center">404: Return to sender. Address unknown.</main>;
 }
