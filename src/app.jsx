@@ -13,6 +13,8 @@ export default function App() {
 function logout() {
     localStorage.removeItem('user')
     setUser(null)
+    localStorage.removeItem('gameOver');
+    localStorage.removeItem('lastScore');
   }
 
   return (
@@ -38,7 +40,7 @@ function logout() {
             <main>
                 <Routes>
                     <Route path='/' element={!user ? <Login setUser={setUser} /> : <Navigate to="/play" />} exact />
-                    <Route path='/play' element={user ? <Play user={user} /> : <Navigate to="/" />} />
+                    <Route path='/play' element={user ? <Play user={user} logout={logout} /> : <Navigate to="/" />} />
                     <Route path='/scores' element={<Scores />} />
                     <Route path='/about' element={<About />} />
                     <Route path='*' element={<NotFound />} />
