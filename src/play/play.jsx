@@ -2,6 +2,20 @@ import React from 'react';
 import '../app.css';
 
 export function Play() {
+  const [pause, setPause] = React.useState(true)
+  function pauseGame(){
+    setPause(true)
+    //pause timer
+  }
+  function playGame(){
+    setPause(false)
+    //start timer
+  }
+  function endGame(){
+    pauseGame()
+    //record username, score, time
+    //show message showing score/time and saying "Play again tomorrow!"
+  }
   return (
     <main className="container-fluid back-light text-center">
       <div className="players">
@@ -23,9 +37,6 @@ export function Play() {
         <div>
           Timer: <span id="timer">00:00</span>
         </div>
-        <div>
-          <button type="submit" className="btn but-color">Pause/Play</button>
-        </div>
       </div>
 
       <div className="quiz">
@@ -46,6 +57,9 @@ export function Play() {
           <input type="radio" id="radio4" name="varRadio" value="radio3" />
           31</label>
         </div>
+        {pause && <button onClick={playGame} type="submit" className="btn but-color">Play</button>}
+        {!pause && <button onClick={pauseGame} type="submit" className="btn sec-but">Pause</button>}
+        {!pause && <button type="submit" className="btn but-color">Submit</button>}
       </div>
     </main>
   );
