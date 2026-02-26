@@ -2,6 +2,37 @@ import React from 'react';
 import '../app.css';
 
 export function Scores() {
+  const [scores, setScores] = React.useState([]);
+
+  // Demonstrates calling a service asynchronously so that
+  // React can properly update state objects with the results.
+  React.useEffect(() => {
+    const scoresText = localStorage.getItem('scores');
+    if (scoresText) {
+      setScores(JSON.parse(scoresText));
+    }
+  }, []);
+
+  // Demonstrates rendering an array with React
+  const scoreRows = [];
+  if (scores.length) {
+    for (const [i, score] of scores.entries()) {
+      scoreRows.push(
+        <tr key={i}>
+          <td>{i+1}</td>
+          <td>{score.name.split('@')[0]}</td>
+          <td>{score.score}</td>
+          <td>{score.time}</td>
+        </tr>
+      );
+    }
+  } else {
+    scoreRows.push(
+      <tr key='0'>
+        <td colSpan='4'>Be the first to score</td>
+      </tr>
+    );
+  }
   return (
     <main className="container-fluid back-light text-center">
       <table className="table table-success table-striped table-bordered">
@@ -13,44 +44,7 @@ export function Scores() {
             <th>Time</th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <td>1</td>
-            <td>John Doe</td>
-            <td>10</td>
-            <td>1:01</td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>Jane Doe</td>
-            <td>9</td>
-            <td>1:32</td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td>User04</td>
-            <td>9</td>
-            <td>1:43</td>
-          </tr>
-          <tr>
-            <td>4</td>
-            <td>User03</td>
-            <td>8</td>
-            <td>0:59</td>
-          </tr>
-          <tr>
-            <td>5</td>
-            <td>User12</td>
-            <td>7</td>
-            <td>0:48</td>
-          </tr>
-          <tr>
-            <td>-</td>
-            <td>You</td>
-            <td>5</td>
-            <td>2:19</td>
-          </tr>
-        </tbody>
+        <tbody id='scores'>{scoreRows}</tbody>
       </table>
     </main>
   );

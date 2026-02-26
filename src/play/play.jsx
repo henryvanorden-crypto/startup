@@ -13,6 +13,71 @@ export function Play({ user, logout }) {
   const questionSet = triviaQuestions()
   const currentQuestion = questionSet[qIndex]
   const navigate = useNavigate();
+  const [msg, setMsg] = React.useState('...listening')
+  
+  async function saveScore(score, time, totalSeconds) {
+    const newScore = { name: user, score: score, time: time, totalSeconds: totalSeconds };
+
+    // Let other players know the game has concluded
+    //GameNotifier.broadcastEvent(userName, GameEvent.End, newScore);
+
+    updateScoresLocal(newScore);
+  }
+
+  function updateScoresLocal(newScore) {
+    let scores = [];
+    const lastUpd = localStorage.getItem('lastUpd')
+    const today = new Date().toISOString().split('T')[0];
+    if (lastUpd){
+      if (lastUpd != today){
+        localStorage.setItem('scores', JSON.stringify(scores))
+      }
+    }
+    localStorage.setItem('lastUpd', today)
+    const scoresText = localStorage.getItem('scores');
+    if (scoresText) {
+      scores = JSON.parse(scoresText);
+    }
+
+    let found = false;
+    for (const [i, prevScore] of scores.entries()) {
+      if (newScore.score > prevScore.score) {
+        scores.splice(i, 0, newScore);
+        found = true;
+        break;
+      }
+      else if (newScore.score == prevScore.score) {
+        if (newScore.totalSeconds < prevScore.totalSeconds){
+          scores.splice(i, 0, newScore);
+          found = true;
+          break;
+        }
+      }
+    }
+
+    if (!found) {
+      scores.push(newScore);
+    }
+
+    if (scores.length > 10) {
+      scores.length = 10;
+    }
+
+    localStorage.setItem('scores', JSON.stringify(scores));
+  }
+
+
+  React.useEffect(() => {
+  const intervalId = setInterval(() => {
+    const names = ['bob', 'sue', 'tim'];
+    const randomName = names[Math.floor(Math.random() * names.length)];
+    const randomCount = Math.floor(Math.random() * 11);
+    const newMsg = `${randomName} scored ${randomCount}`;
+    setMsg(newMsg);
+  }, 2000);
+
+  return () => clearInterval(intervalId);
+}, []);
 
   //timer
   React.useEffect(() => {
@@ -34,7 +99,12 @@ const seconds = time % 60
   }
   function playGame(){
     setPause(false)
-  }
+    const today = new Date().toISOString().split('T')[0];
+    const storedDate = localStorage.getItem("lastDate");
+    if (storedDate !== today) {
+      localStorage.setItem("lastDate", today);
+    }
+    }
   function submit(){
     let newScore = score
     if (currentQuestion.correctIndex == selectedAnswer){
@@ -52,13 +122,15 @@ const seconds = time % 60
     pauseGame()
     //record username, score, time
     localStorage.setItem('gameOver', 'true')
+    const totalSeconds = minutes * 60 + seconds
     localStorage.setItem('lastScore', finalScore)
     const finalTime = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`
     localStorage.setItem('lastTime', finalTime)
     setGameOverMessage(<>Game over!<br />Your score: {finalScore} Your time: {finalTime}<br />Come back tomorrow!</>);
+    saveScore(finalScore, finalTime, totalSeconds)
   }
   React.useEffect(() => {
-  if (localStorage.getItem('gameOver') === 'true') {
+  if (localStorage.getItem('gameOver') === 'true' && localStorage.getItem("lastDate") === new Date().toISOString().split('T')[0]) {
     setGameOverMessage(<>Game over!<br />Your score: {localStorage.getItem('lastScore')} Your time: {localStorage.getItem('lastTime')}<br />Come back tomorrow!</>);
     setPause(true)
   }
@@ -66,13 +138,7 @@ const seconds = time % 60
   return (
     <main className="container-fluid back-light text-center">
       <div className="players">
-        Player
-        <span className="player-name">Mystery player</span>
-        <div id="player-messages">
-          <div className="event"><span className="player-event">Linus</span> started a new game</div>
-          <div className="event"><span className="player-event">Tim</span> scored 10</div>
-          <div className="event"><span className="system-event">game</span> connected</div>
-        </div>
+        {msg}
       </div>
 
       <div className="quiz-header">
@@ -93,17 +159,17 @@ const seconds = time % 60
         </div>
       )}
       <div className="quiz">
-        <p id="quiz-question">
+        {!pause && <p id="quiz-question">
           Question {qIndex + 1}: {currentQuestion.question}
-        </p>
-        <div className="quiz-answers">
+        </p>}
+        {!pause && <div className="quiz-answers">
           {currentQuestion.choices.map((choice, index) => (
   <label key={index}>
     <input type="radio" value={index} name="answer" onChange={() => setSelectedAnswer(index)} />
     {choice}
   </label>
 ))}
-        </div>
+        </div>}
         {pause && <button onClick={playGame} type="submit" className="btn but-color">Play</button>}
         {!pause && <button onClick={pauseGame} type="submit" className="btn sec-but">Pause</button>}
         {!pause && <button onClick={submit} type="submit" className="btn but-color">Submit</button>}

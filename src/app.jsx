@@ -41,7 +41,7 @@ function logout() {
                 <Routes>
                     <Route path='/' element={!user ? <Login setUser={setUser} /> : <Navigate to="/play" />} exact />
                     <Route path='/play' element={user ? <Play user={user} logout={logout} /> : <Navigate to="/" />} />
-                    <Route path='/scores' element={<Scores />} />
+                    <Route path='/scores' element={user ? <Scores /> : <Navigate to="/" />} />
                     <Route path='/about' element={<About />} />
                     <Route path='*' element={<NotFound />} />
                 </Routes>
