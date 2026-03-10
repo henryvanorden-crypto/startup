@@ -13,11 +13,11 @@ app.use(express.json());
 let users = [];
 let scores = [];
 
+app.use(cookieParser());
+
 let apiRouter = express.Router();
 app.use(`/api`, apiRouter);
 
-//from simon
-app.use(cookieParser());
 const authCookieName = 'token';
 
 // CreateAuth a new user
@@ -88,18 +88,20 @@ app.use((_req, res) => {
 });
 
 // updateScores considers a new score for inclusion in the high scores.
+function getDateString(date) {
+  return date.toISOString().split('T')[0];
+}
+
 let lastReset = getDateString(new Date());
 
 function updateScores(newScore) {
   const today = getDateString(new Date());
 
-  // Daily reset
   if (today !== lastReset) {
     scores = [];
     lastReset = today;
   }
 
-  // Your ranking + tie-breaking logic
   let found = false;
   for (const [i, prevScore] of scores.entries()) {
     if (newScore.score > prevScore.score) {
