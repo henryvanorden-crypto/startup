@@ -10,11 +10,20 @@ import { About } from './about/about';
 
 export default function App() {
     const [user, setUser] = React.useState(localStorage.getItem('user') || null);
+
 function logout() {
-    localStorage.removeItem('user')
-    setUser(null)
-    localStorage.removeItem('gameOver');
-    localStorage.removeItem('lastScore');
+    fetch(`/api/auth/logout`, {
+      method: 'delete',
+    })
+      .catch(() => {
+        // Logout failed. Assuming offline
+      })
+      .finally(() => {
+        localStorage.removeItem('user')
+        setUser(null)
+        localStorage.removeItem('gameOver');
+        localStorage.removeItem('lastScore');
+      });
   }
 
   return (
