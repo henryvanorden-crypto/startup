@@ -4,14 +4,13 @@ import '../app.css';
 export function Scores() {
   const [scores, setScores] = React.useState([]);
 
-  // Demonstrates calling a service asynchronously so that
-  // React can properly update state objects with the results.
   React.useEffect(() => {
-    const scoresText = localStorage.getItem('scores');
-    if (scoresText) {
-      setScores(JSON.parse(scoresText));
-    }
-  }, []);
+  fetch('/api/scores')
+    .then((response) => response.json())
+    .then((scores) => {
+      setScores(scores);
+    });
+}, []);
 
   // Demonstrates rendering an array with React
   const scoreRows = [];
