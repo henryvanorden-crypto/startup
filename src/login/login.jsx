@@ -8,15 +8,29 @@ const [password, setPassword] = React.useState('')
 const navigate = useNavigate()
 
 function loginUser(){
-  localStorage.setItem('user', text)
-  setUser(text)
-  navigate('/play')
+  loginOrCreate(`/api/auth/login`);
 }
 function createUser(){
-  localStorage.setItem('user', text)
-  setUser(text)
-  navigate('/play')
+  loginOrCreate(`/api/auth/create`);
 }
+
+async function loginOrCreate(endpoint) {
+    const response = await fetch(endpoint, {
+      method: 'post',
+      body: JSON.stringify({ email: userName, password: password }),
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+      },
+    });
+    if (response?.status === 200) {
+      localStorage.setItem('user', text)
+      setUser(text)
+      navigate('/play')
+    } else {
+      const body = await response.json();
+      setDisplayError(`⚠ Error: ${body.msg}`);
+    }
+  }
 
 function textChange(e){
   setText(e.target.value)
