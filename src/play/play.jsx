@@ -21,51 +21,12 @@ export function Play({ user, logout }) {
     // Let other players know the game has concluded
     //GameNotifier.broadcastEvent(userName, GameEvent.End, newScore);
 
-    updateScoresLocal(newScore);
+    await fetch('/api/score', {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify(newScore),
+  });
   }
-
-  function updateScoresLocal(newScore) {
-    let scores = [];
-    const lastUpd = localStorage.getItem('lastUpd')
-    const today = new Date().toISOString().split('T')[0];
-    if (lastUpd){
-      if (lastUpd != today){
-        localStorage.setItem('scores', JSON.stringify(scores))
-      }
-    }
-    localStorage.setItem('lastUpd', today)
-    const scoresText = localStorage.getItem('scores');
-    if (scoresText) {
-      scores = JSON.parse(scoresText);
-    }
-
-    let found = false;
-    for (const [i, prevScore] of scores.entries()) {
-      if (newScore.score > prevScore.score) {
-        scores.splice(i, 0, newScore);
-        found = true;
-        break;
-      }
-      else if (newScore.score == prevScore.score) {
-        if (newScore.totalSeconds < prevScore.totalSeconds){
-          scores.splice(i, 0, newScore);
-          found = true;
-          break;
-        }
-      }
-    }
-
-    if (!found) {
-      scores.push(newScore);
-    }
-
-    if (scores.length > 10) {
-      scores.length = 10;
-    }
-
-    localStorage.setItem('scores', JSON.stringify(scores));
-  }
-
 
   React.useEffect(() => {
   const intervalId = setInterval(() => {
