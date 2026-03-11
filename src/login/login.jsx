@@ -5,19 +5,22 @@ import { useNavigate } from 'react-router-dom';
 export function Login({setUser}) {
 const [text, setText] = React.useState('')
 const [password, setPassword] = React.useState('')
+const [displayError, setDisplayError] = React.useState(null);
 const navigate = useNavigate()
 
-function loginUser(){
+function loginUser(e){
+  e.preventDefault()
   loginOrCreate(`/api/auth/login`);
 }
-function createUser(){
+function createUser(e){
+  e.preventDefault()
   loginOrCreate(`/api/auth/create`);
 }
 
 async function loginOrCreate(endpoint) {
     const response = await fetch(endpoint, {
       method: 'post',
-      body: JSON.stringify({ email: userName, password: password }),
+      body: JSON.stringify({ email: text, password: password }),
       headers: {
         'Content-type': 'application/json; charset=UTF-8',
       },
@@ -54,8 +57,8 @@ function passChange(e){
         </div>
         <button onClick={loginUser} disabled={!text || !password} className="btn but-color">Login</button>
         <button onClick={createUser} disabled={!text || !password} className="btn sec-but">Create</button>
+        <div>{displayError}</div>
       </form>
     </main>
-    
   );
 }

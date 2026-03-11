@@ -104,7 +104,7 @@ const seconds = time % 60
 
       <div className="quiz-header">
         <div>
-          <label for="count">Score: {score}/10</label>
+          <label htmlFor="count">Score: {score}/10</label>
         </div>
         <div>
           Timer: <span id="timer">{String(minutes).padStart(2, '0')}:{String(seconds).padStart(2, '0')}</span>
