@@ -1,6 +1,6 @@
 import React from 'react';
 import '../app.css';
-import { triviaQuestions } from './service';
+import { getTrivia } from './service';
 import { useNavigate } from 'react-router-dom';
 
 export function Play({ user, logout }) {
@@ -10,11 +10,58 @@ export function Play({ user, logout }) {
   const [score, setScore] = React.useState(0)
   const [selectedAnswer, setSelectedAnswer] = React.useState(null)
   const [gameOverMessage, setGameOverMessage] = React.useState(null);
-  const questionSet = triviaQuestions()
-  const currentQuestion = questionSet[qIndex]
   const navigate = useNavigate();
   const [msg, setMsg] = React.useState('...listening')
-  
+  const [questionSet, setQuestionSet] = React.useState(null);
+
+React.useEffect(() => {
+  async function loadTrivia() {
+    try {
+      const trivia = await getTrivia();
+      setQuestionSet(trivia);
+    } catch (err) {
+      console.error("Trivia load failed:", err);
+    }
+  }
+  loadTrivia();
+}, []);
+
+React.useEffect(() => {
+  const intervalId = setInterval(() => {
+    const names = ['bob', 'sue', 'tim'];
+    const randomName = names[Math.floor(Math.random() * names.length)];
+    const randomCount = Math.floor(Math.random() * 11);
+    const newMsg = `${randomName} scored ${randomCount}`;
+    setMsg(newMsg);
+  }, 2000);
+
+  return () => clearInterval(intervalId);
+}, []);
+
+React.useEffect(() => {
+  if (pause) {
+    return;
+  }
+
+  const intervalId = setInterval(() => {
+    setTime(prevTime => prevTime + 1);
+  }, 1000);
+
+  return () => clearInterval(intervalId);
+}, [pause]);
+
+React.useEffect(() => {
+  if (localStorage.getItem('gameOver') === 'true' && localStorage.getItem("lastDate") === new Date().toISOString().split('T')[0]) {
+    setGameOverMessage(<>Game over!<br />Your score: {localStorage.getItem('lastScore')} Your time: {localStorage.getItem('lastTime')}<br />Come back tomorrow!</>);
+    setPause(true)
+  }
+}, [])
+
+if (!questionSet) {
+  return <div>Loading trivia...</div>;
+}
+const currentQuestion = questionSet[qIndex]
+
   async function saveScore(score, time, totalSeconds) {
     const newScore = { name: user, score: score, time: time, totalSeconds: totalSeconds };
 
@@ -28,30 +75,10 @@ export function Play({ user, logout }) {
   });
   }
 
-  React.useEffect(() => {
-  const intervalId = setInterval(() => {
-    const names = ['bob', 'sue', 'tim'];
-    const randomName = names[Math.floor(Math.random() * names.length)];
-    const randomCount = Math.floor(Math.random() * 11);
-    const newMsg = `${randomName} scored ${randomCount}`;
-    setMsg(newMsg);
-  }, 2000);
-
-  return () => clearInterval(intervalId);
-}, []);
+  
 
   //timer
-  React.useEffect(() => {
-  if (pause) {
-    return;
-  }
-
-  const intervalId = setInterval(() => {
-    setTime(prevTime => prevTime + 1);
-  }, 1000);
-
-  return () => clearInterval(intervalId);
-}, [pause]);
+  
 const minutes = Math.floor(time / 60)
 const seconds = time % 60
 
@@ -90,12 +117,7 @@ const seconds = time % 60
     setGameOverMessage(<>Game over!<br />Your score: {finalScore} Your time: {finalTime}<br />Come back tomorrow!</>);
     saveScore(finalScore, finalTime, totalSeconds)
   }
-  React.useEffect(() => {
-  if (localStorage.getItem('gameOver') === 'true' && localStorage.getItem("lastDate") === new Date().toISOString().split('T')[0]) {
-    setGameOverMessage(<>Game over!<br />Your score: {localStorage.getItem('lastScore')} Your time: {localStorage.getItem('lastTime')}<br />Come back tomorrow!</>);
-    setPause(true)
-  }
-}, [])
+  
   return (
     <main className="container-fluid back-light text-center">
       <div className="players">

@@ -147,6 +147,25 @@ async function findUser(field, value) {
   return users.find((u) => u[field] === value);
 }
 
+let todayTrivia = [];
+let lastTriviaDate = getDateString(new Date());
+apiRouter.get('/trivia', async (req, res) => {
+  const today = getDateString(new Date());
+
+  if (todayTrivia.length === 0 || today !== lastTriviaDate) {
+    const apiData = await fetchTriviaFromAPI();
+    todayTrivia = apiData.results;
+    lastTriviaDate = today;
+  }
+
+  res.send({ results: todayTrivia });
+});
+async function fetchTriviaFromAPI() {
+  const response = await fetch('https://opentdb.com/api.php?amount=10&type=multiple');
+  return await response.json();
+}
+
+
 // setAuthCookie in the HTTP response
 function setAuthCookie(res, authToken) {
   res.cookie(authCookieName, authToken, {
