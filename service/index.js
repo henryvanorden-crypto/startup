@@ -66,13 +66,36 @@ const verifyAuth = async (req, res, next) => {
   }
 };
 
+apiRouter.get('/canPlay', verifyAuth, async (req, res) => {
+  const user = await findUser('token', req.cookies[authCookieName]);
+  const today = new Date().toISOString().split('T')[0];
+
+  const canPlay = user.lastPlayed !== today;
+
+  res.send({
+    canPlay,
+    lastScore: user.lastScore,
+    lastTime: user.lastTime,
+  });
+});
+
 // GetScores
 apiRouter.get('/scores', verifyAuth, (_req, res) => {
   res.send(scores);
 });
 
 // SubmitScore
-apiRouter.post('/score', verifyAuth, (req, res) => {
+apiRouter.post('/score', verifyAuth, async (req, res) => {
+  const user = await findUser('token', req.cookies[authCookieName]);
+  const today = new Date().toISOString().split('T')[0];
+
+  // Save daily limit
+  user.lastPlayed = today;
+
+  // Save last score/time
+  user.lastScore = req.body.score;
+  user.lastTime = req.body.time;
+
   scores = updateScores(req.body);
   res.send(scores);
 });
@@ -135,6 +158,9 @@ async function createUser(email, password) {
     email: email,
     password: passwordHash,
     token: uuid.v4(),
+    lastPlayed: null,
+    lastScore: null,
+    lastTime: null,
   };
   users.push(user);
 

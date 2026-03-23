@@ -51,11 +51,24 @@ React.useEffect(() => {
 }, [pause]);
 
 React.useEffect(() => {
-  if (localStorage.getItem('gameOver') === 'true' && localStorage.getItem("lastDate") === new Date().toISOString().split('T')[0]) {
-    setGameOverMessage(<>Game over!<br />Your score: {localStorage.getItem('lastScore')} Your time: {localStorage.getItem('lastTime')}<br />Come back tomorrow!</>);
-    setPause(true)
+  async function checkCanPlay() {
+    const res = await fetch('/api/canPlay');
+    const data = await res.json();
+
+    if (!data.canPlay) {
+      setGameOverMessage(
+        <>You already played today!<br />
+          Your score: {data.lastScore} Your time: {data.lastTime}<br />
+          Come back tomorrow!
+        </>
+      );
+      setPause(true);
+    }
   }
-}, [])
+
+  checkCanPlay();
+}, []);
+
 
 if (!questionSet) {
   return <div>Loading trivia...</div>;
@@ -87,11 +100,6 @@ const seconds = time % 60
   }
   function playGame(){
     setPause(false)
-    const today = new Date().toISOString().split('T')[0];
-    const storedDate = localStorage.getItem("lastDate");
-    if (storedDate !== today) {
-      localStorage.setItem("lastDate", today);
-    }
     }
   function submit(){
     let newScore = score
@@ -106,17 +114,21 @@ const seconds = time % 60
       setQIndex(nextIndex);
     }
   }
-  function endGame(finalScore){
-    pauseGame()
-    //record username, score, time
-    localStorage.setItem('gameOver', 'true')
-    const totalSeconds = minutes * 60 + seconds
-    localStorage.setItem('lastScore', finalScore)
-    const finalTime = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`
-    localStorage.setItem('lastTime', finalTime)
-    setGameOverMessage(<>Game over!<br />Your score: {finalScore} Your time: {finalTime}<br />Come back tomorrow!</>);
-    saveScore(finalScore, finalTime, totalSeconds)
-  }
+  function endGame(finalScore) {
+  pauseGame();
+  const totalSeconds = minutes * 60 + seconds;
+  const finalTime = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+
+  setGameOverMessage(
+    <>Game over!<br />
+      Your score: {finalScore} Your time: {finalTime}<br />
+      Come back tomorrow!
+    </>
+  );
+
+  saveScore(finalScore, finalTime, totalSeconds);
+}
+
   
   return (
     <main className="container-fluid back-light text-center">
