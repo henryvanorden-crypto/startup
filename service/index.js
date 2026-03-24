@@ -85,7 +85,8 @@ apiRouter.get('/canPlay', verifyAuth, async (req, res) => {
 // GetScores
 //added async, changed _req to req, added const line
 apiRouter.get('/scores', verifyAuth, async (req, res) => {
-  const scores = await DB.getHighScores();
+  const today = new Date().toISOString().split('T')[0];
+  const scores = await DB.getTodayHighScores(today);
   res.send(scores);
 });
 
@@ -123,41 +124,54 @@ function getDateString(date) {
   return date.toISOString().split('T')[0];
 }
 
-let lastReset = getDateString(new Date());
+// let lastReset = getDateString(new Date());
 
-function updateScores(newScore) {
-  const today = getDateString(new Date());
+async function updateScores(newScore) {
+  const today = new Date().toISOString().split('T')[0];
 
-  if (today !== lastReset) {
-    scores = [];
-    lastReset = today;
-  }
+  // Add today's date to the score
+  newScore.date = today;
 
-  let found = false;
-  for (const [i, prevScore] of scores.entries()) {
-    if (newScore.score > prevScore.score) {
-      scores.splice(i, 0, newScore);
-      found = true;
-      break;
-    } else if (newScore.score === prevScore.score) {
-      if (newScore.totalSeconds < prevScore.totalSeconds) {
-        scores.splice(i, 0, newScore);
-        found = true;
-        break;
-      }
-    }
-  }
+  // Insert the score into MongoDB
+  await DB.addScore(newScore);
 
-  if (!found) {
-    scores.push(newScore);
-  }
-
-  if (scores.length > 10) {
-    scores.length = 10;
-  }
-
-  return scores;
+  // Return today's top 10, sorted by score desc, time asc
+  return DB.getHighScores(today);
 }
+
+
+  // const today = getDateString(new Date());
+
+  // if (today !== lastReset) {
+  //   scores = [];
+  //   lastReset = today;
+  // }
+
+  // let found = false;
+  // for (const [i, prevScore] of scores.entries()) {
+  //   if (newScore.score > prevScore.score) {
+  //     scores.splice(i, 0, newScore);
+  //     found = true;
+  //     break;
+  //   } else if (newScore.score === prevScore.score) {
+  //     if (newScore.totalSeconds < prevScore.totalSeconds) {
+  //       scores.splice(i, 0, newScore);
+  //       found = true;
+  //       break;
+  //     }
+  //   }
+  // }
+
+//   if (!found) {
+//     scores.push(newScore);
+//   }
+
+//   if (scores.length > 10) {
+//     scores.length = 10;
+//   }
+
+//   return scores;
+// }
 
 async function createUser(email, password) {
   const passwordHash = await bcrypt.hash(password, 10);
@@ -184,24 +198,24 @@ async function findUser(field, value) {
   return DB.getUser(value);
 }
 
-//come back to for database edits
-let todayTrivia = [];
-let lastTriviaDate = getDateString(new Date());
 apiRouter.get('/trivia', async (req, res) => {
   const today = getDateString(new Date());
 
-  if (todayTrivia.length === 0 || today !== lastTriviaDate) {
+  // Check DB first
+  let trivia = await DB.getTriviaByDate(today);
+
+  if (!trivia) {
+    // Fetch new trivia
     const apiData = await fetchTriviaFromAPI();
-    todayTrivia = apiData.results;
-    lastTriviaDate = today;
+    trivia = { date: today, questions: apiData.results };
+
+    // Save to DB
+    await DB.saveTrivia(today, trivia.questions);
   }
 
-  res.send({ results: todayTrivia });
+  res.send({ results: trivia.questions });
 });
-async function fetchTriviaFromAPI() {
-  const response = await fetch('https://opentdb.com/api.php?amount=10&type=multiple');
-  return await response.json();
-}
+
 
 
 // setAuthCookie in the HTTP response

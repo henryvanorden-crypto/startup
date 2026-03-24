@@ -8,6 +8,7 @@ const client = new MongoClient(url);
 const db = client.db('startup');
 const userCollection = db.collection('user');
 const scoreCollection = db.collection('score');
+const triviaCollection = db.collection('trivia');
 
 // This will asynchronously test the connection and exit the process if it fails
 (async function testConnection() {
@@ -44,15 +45,24 @@ async function addScore(score) {
   return scoreCollection.insertOne(score);
 }
 
-function getHighScores() {
-  const query = { score: { $gt: 0, $lt: 900 } };
+function getHighScores(today) {
+  const query = { date: today };
   const options = {
-    sort: { score: -1 },
+    sort: { score: -1, totalSeconds: 1 },
     limit: 10,
   };
   const cursor = scoreCollection.find(query, options);
   return cursor.toArray();
 }
+
+async function getTriviaByDate(date) {
+  return triviaCollection.findOne({ date });
+}
+
+async function saveTrivia(date, questions) {
+  return triviaCollection.insertOne({ date, questions });
+}
+
 
 module.exports = {
   getUser,
@@ -62,4 +72,6 @@ module.exports = {
   updateUserRemoveAuth,
   addScore,
   getHighScores,
+  getTriviaByDate,
+  saveTrivia,
 };
