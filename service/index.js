@@ -69,7 +69,6 @@ const verifyAuth = async (req, res, next) => {
   }
 };
 
-//come back to for database edits
 apiRouter.get('/canPlay', verifyAuth, async (req, res) => {
   const user = await findUser('token', req.cookies[authCookieName]);
   const today = new Date().toISOString().split('T')[0];
@@ -91,7 +90,6 @@ apiRouter.get('/scores', verifyAuth, async (req, res) => {
 });
 
 // SubmitScore
-//come back to for database edits, edited 2nd to last line
 apiRouter.post('/score', verifyAuth, async (req, res) => {
   const user = await findUser('token', req.cookies[authCookieName]);
   const today = new Date().toISOString().split('T')[0];
@@ -102,6 +100,8 @@ apiRouter.post('/score', verifyAuth, async (req, res) => {
   // Save last score/time
   user.lastScore = req.body.score;
   user.lastTime = req.body.time;
+
+  await DB.updateUser(user);
 
   const scores = await updateScores(req.body);
   res.send(scores);
