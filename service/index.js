@@ -18,7 +18,11 @@ app.use(express.static('public'));
 const apiRouter = express.Router();
 app.use(`/api`, apiRouter);
 
-
+function getDateString(date) {
+  return new Date(date.getTime() - date.getTimezoneOffset() * 60000)
+    .toISOString()
+    .split('T')[0];
+}
 // CreateAuth a new user
 apiRouter.post('/auth/create', async (req, res) => {
   if (await findUser('email', req.body.email)) {
@@ -68,7 +72,7 @@ const verifyAuth = async (req, res, next) => {
 
 apiRouter.get('/canPlay', verifyAuth, async (req, res) => {
   const user = await findUser('token', req.cookies[authCookieName]);
-  const today = new Date().toLocaleDateString('en-CA');
+  const today = getDateString(new Date());
 
   const canPlay = user.lastPlayed !== today;
 
@@ -81,7 +85,7 @@ apiRouter.get('/canPlay', verifyAuth, async (req, res) => {
 
 // GetScores
 apiRouter.get('/scores', verifyAuth, async (req, res) => {
-  const today = new Date().toLocaleDateString('en-CA');
+  const today = getDateString(new Date());
   const scores = await DB.getHighScores(today);
   res.send(scores);
 });
@@ -89,7 +93,7 @@ apiRouter.get('/scores', verifyAuth, async (req, res) => {
 // SubmitScore
 apiRouter.post('/score', verifyAuth, async (req, res) => {
   const user = await findUser('token', req.cookies[authCookieName]);
-  const today = new Date().toLocaleDateString('en-CA');
+  const today = getDateString(new Date());
 
   user.lastPlayed = today;
 
@@ -113,13 +117,10 @@ app.use((_req, res) => {
 });
 
 
-// updateScores considers a new score for inclusion in the high scores.
-function getDateString(date) {
-  return date.toLocaleDateString('en-CA');
-}
+// updateScores considers a new score for inclusion in the high scores
 
 async function updateScores(newScore) {
-  const today = new Date().toLocaleDateString('en-CA');
+  const today = getDateString(new Date());
 
   newScore.date = today;
 
