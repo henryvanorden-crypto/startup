@@ -1,24 +1,26 @@
-const express = require('express');
-const app = express();
-
-const port = process.argv.length > 2 ? process.argv[2] : 4000;
-app.use(express.static('public'));
-
 const cookieParser = require('cookie-parser');
 const bcrypt = require('bcryptjs');
+const express = require('express');
 const uuid = require('uuid');
+const app = express();
+const DB = require('../testMongo/database.js');
+
+const authCookieName = 'token';
+
+const port = process.argv.length > 2 ? process.argv[2] : 4000;
 
 app.use(express.json());
 
-let users = [];
-let scores = [];
+// let users = [];
+// let scores = [];
 
 app.use(cookieParser());
 
-let apiRouter = express.Router();
+app.use(express.static('public'));
+
+const apiRouter = express.Router(); //replace let with const
 app.use(`/api`, apiRouter);
 
-const authCookieName = 'token';
 
 // CreateAuth a new user
 apiRouter.post('/auth/create', async (req, res) => {
@@ -38,6 +40,7 @@ apiRouter.post('/auth/login', async (req, res) => {
   if (user) {
     if (await bcrypt.compare(req.body.password, user.password)) {
       user.token = uuid.v4();
+      await DB.updateUser(user);
       setAuthCookie(res, user.token);
       res.send({ email: user.email });
       return;
@@ -50,7 +53,7 @@ apiRouter.post('/auth/login', async (req, res) => {
 apiRouter.delete('/auth/logout', async (req, res) => {
   const user = await findUser('token', req.cookies[authCookieName]);
   if (user) {
-    delete user.token;
+    await DB.updateUserRemoveAuth(user);
   }
   res.clearCookie(authCookieName);
   res.status(204).end();
@@ -66,6 +69,7 @@ const verifyAuth = async (req, res, next) => {
   }
 };
 
+//come back to for database edits
 apiRouter.get('/canPlay', verifyAuth, async (req, res) => {
   const user = await findUser('token', req.cookies[authCookieName]);
   const today = new Date().toISOString().split('T')[0];
@@ -80,11 +84,14 @@ apiRouter.get('/canPlay', verifyAuth, async (req, res) => {
 });
 
 // GetScores
-apiRouter.get('/scores', verifyAuth, (_req, res) => {
+//added async, changed _req to req, added const line
+apiRouter.get('/scores', verifyAuth, async (req, res) => {
+  const scores = await DB.getHighScores();
   res.send(scores);
 });
 
 // SubmitScore
+//come back to for database edits, edited 2nd to last line
 apiRouter.post('/score', verifyAuth, async (req, res) => {
   const user = await findUser('token', req.cookies[authCookieName]);
   const today = new Date().toISOString().split('T')[0];
@@ -96,7 +103,7 @@ apiRouter.post('/score', verifyAuth, async (req, res) => {
   user.lastScore = req.body.score;
   user.lastTime = req.body.time;
 
-  scores = updateScores(req.body);
+  const scores = await updateScores(req.body);
   res.send(scores);
 });
 
@@ -110,6 +117,7 @@ app.use((_req, res) => {
   res.sendFile('index.html', { root: 'public' });
 });
 
+//come back to for database edits
 // updateScores considers a new score for inclusion in the high scores.
 function getDateString(date) {
   return date.toISOString().split('T')[0];
@@ -162,7 +170,7 @@ async function createUser(email, password) {
     lastScore: null,
     lastTime: null,
   };
-  users.push(user);
+  await DB.addUser(user);
 
   return user;
 }
@@ -170,9 +178,13 @@ async function createUser(email, password) {
 async function findUser(field, value) {
   if (!value) return null;
 
-  return users.find((u) => u[field] === value);
+  if (field === 'token') {
+    return DB.getUserByToken(value);
+  }
+  return DB.getUser(value);
 }
 
+//come back to for database edits
 let todayTrivia = [];
 let lastTriviaDate = getDateString(new Date());
 apiRouter.get('/trivia', async (req, res) => {
@@ -203,6 +215,6 @@ function setAuthCookie(res, authToken) {
 }
 
 
-app.listen(port, () => {
+const httpService = app.listen(port, () => {
   console.log(`Listening on port ${port}`);
 });
