@@ -18,10 +18,10 @@ app.use(express.static('public'));
 const apiRouter = express.Router();
 app.use(`/api`, apiRouter);
 
-function getDateString(date) {
-  return new Date(date.getTime() - date.getTimezoneOffset() * 60000)
-    .toISOString()
-    .split('T')[0];
+function getDateString(date = new Date()) {
+  return date.toLocaleDateString('en-CA', {
+    timeZone: 'America/Denver', // Mountain Time
+  });
 }
 // CreateAuth a new user
 apiRouter.post('/auth/create', async (req, res) => {
