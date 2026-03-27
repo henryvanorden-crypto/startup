@@ -13,12 +13,16 @@ export function Play({ user, logout }) {
   const navigate = useNavigate();
   const [msg, setMsg] = React.useState('...listening')
   const [questionSet, setQuestionSet] = React.useState(null);
+  const [quizDate, setQuizDate] = React.useState(null);
 
 React.useEffect(() => {
   async function loadTrivia() {
     try {
       const trivia = await getTrivia();
-      setQuestionSet(trivia);
+      console.log("Trivia fetched from API:", trivia);
+      // assuming backend now returns { results, date }
+      setQuestionSet(trivia.results);   // questions
+      setQuizDate(trivia.date);         // ✅ STORE DATE
     } catch (err) {
       console.error("Trivia load failed:", err);
     }
@@ -76,7 +80,7 @@ if (!questionSet) {
 const currentQuestion = questionSet[qIndex]
 
   async function saveScore(score, time, totalSeconds) {
-    const newScore = { name: user, score: score, time: time, totalSeconds: totalSeconds };
+    const newScore = { name: user, score: score, time: time, totalSeconds: totalSeconds, date: quizDate };
 
     // Let other players know the game has concluded
     //GameNotifier.broadcastEvent(userName, GameEvent.End, newScore);

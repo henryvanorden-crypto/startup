@@ -49,7 +49,7 @@ function passChange(e){
       <form>
         <div className="input-group mb-3">
           <span className="input-group-text">@</span>
-          <input onChange={textChange} className="form-control" type="text" placeholder="your@email.com" />
+          <input onChange={textChange} className="form-control" type="text" placeholder="username" />
         </div>
         <div className="input-group mb-3">
           <span className="input-group-text">🔒</span>

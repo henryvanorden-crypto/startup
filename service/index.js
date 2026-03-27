@@ -83,11 +83,21 @@ apiRouter.get('/canPlay', verifyAuth, async (req, res) => {
   });
 });
 
+function getYesterdayString() {
+  const today = new Date();
+  const yesterday = new Date(today);
+  yesterday.setDate(today.getDate() - 1);
+  return yesterday.toLocaleDateString('en-CA', { timeZone: 'America/Denver' });
+}
+
 // GetScores
 apiRouter.get('/scores', verifyAuth, async (req, res) => {
   const today = getDateString(new Date());
   const scores = await DB.getHighScores(today);
-  res.send(scores);
+  const yesterday = getYesterdayString();
+  const yesterdaysScores = await DB.getHighScores(yesterday);
+  const yesterdaysWinner = yesterdaysScores[0];
+  res.send({date: today, scores, yesterdayWinner: yesterdaysWinner || null});
 });
 
 // SubmitScore
@@ -95,7 +105,7 @@ apiRouter.post('/score', verifyAuth, async (req, res) => {
   const user = await findUser('token', req.cookies[authCookieName]);
   const today = getDateString(new Date());
 
-  user.lastPlayed = today;
+  user.lastPlayed = req.body.date;
 
   user.lastScore = req.body.score;
   user.lastTime = req.body.time;
@@ -120,13 +130,9 @@ app.use((_req, res) => {
 // updateScores considers a new score for inclusion in the high scores
 
 async function updateScores(newScore) {
-  const today = getDateString(new Date());
-
-  newScore.date = today;
-
   await DB.addScore(newScore);
 
-  return DB.getHighScores(today);
+  return DB.getHighScores(newScore.date);
 }
 
 async function createUser(email, password) {
@@ -174,7 +180,10 @@ apiRouter.get('/trivia', async (req, res) => {
     await DB.saveTrivia(today, trivia.questions);
   }
 
-  res.send({ results: trivia.questions });
+  res.send({ 
+  results: trivia.questions,
+  date: today
+});
 });
 
 

@@ -2,15 +2,21 @@ import React from 'react';
 import '../app.css';
 
 export function Scores() {
-  const [scores, setScores] = React.useState([]);
+const [scoresData, setScoresData] = React.useState(null);
 
   React.useEffect(() => {
-  fetch('/api/scores')
-    .then((response) => response.json())
-    .then((scores) => {
-      setScores(scores);
-    });
-}, []);
+    fetch('/api/scores')
+      .then((response) => response.json())
+      .then((data) => {
+        setScoresData(data);
+      });
+  }, []);
+
+  if (!scoresData) {
+    return <div>Loading leaderboard...</div>;
+  }
+
+  const { date, scores, yesterdayWinner } = scoresData;
 
   // Demonstrates rendering an array with React
   const scoreRows = [];
@@ -32,8 +38,14 @@ export function Scores() {
       </tr>
     );
   }
+
+  const displayDate = date
+    ? new Date(date).toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })
+    : '';
+
   return (
     <main className="container-fluid back-light text-center">
+      <h2>{displayDate}</h2>
       <table className="table table-success table-striped table-bordered">
         <thead className="table-dark">
           <tr>
@@ -45,6 +57,11 @@ export function Scores() {
         </thead>
         <tbody id='scores'>{scoreRows}</tbody>
       </table>
+      {yesterdayWinner && (
+        <div className="yesterday-winner mt-3">
+          Yesterday's winner: {yesterdayWinner.name.split('@')[0]} ({yesterdayWinner.score})
+        </div>
+      )}
     </main>
   );
 }

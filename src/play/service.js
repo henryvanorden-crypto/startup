@@ -29,6 +29,9 @@ export async function getTrivia() {
   const response = await fetch('/api/trivia');
   const data = await response.json();
   console.log("TRIVIA FROM BACKEND:", data);
-  return convertTrivia(data);
+  return {
+    results: convertTrivia(data),
+    date: data.date
+  };
 }
 
