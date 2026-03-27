@@ -17,6 +17,7 @@ const [scoresData, setScoresData] = React.useState(null);
   }
 
   const { date, scores, yesterdayWinner } = scoresData;
+  console.log(date)
 
   // Demonstrates rendering an array with React
   const scoreRows = [];
@@ -38,10 +39,22 @@ const [scoresData, setScoresData] = React.useState(null);
       </tr>
     );
   }
+  function formatLeaderboardDate(dateStr) {
+  if (!dateStr) return '';
 
-  const displayDate = date
-    ? new Date(date).toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })
-    : '';
+  const [year, month, day] = dateStr.split('-').map(Number);
+  const date = new Date(year, month - 1, day);
+
+  return new Intl.DateTimeFormat('en-US', {
+    timeZone: 'America/Denver',
+    weekday: 'long',
+    month: 'long',
+    day: 'numeric',
+    year: 'numeric'
+  }).format(date);
+}
+
+  const displayDate = formatLeaderboardDate(date)
 
   return (
     <main className="container-fluid back-light text-center">
