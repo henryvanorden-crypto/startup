@@ -20,9 +20,8 @@ React.useEffect(() => {
     try {
       const trivia = await getTrivia();
       console.log("Trivia fetched from API:", trivia);
-      // assuming backend now returns { results, date }
-      setQuestionSet(trivia.results);   // questions
-      setQuizDate(trivia.date);         // ✅ STORE DATE
+      setQuestionSet(trivia.results);
+      setQuizDate(trivia.date);
     } catch (err) {
       console.error("Trivia load failed:", err);
     }
