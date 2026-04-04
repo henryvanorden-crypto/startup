@@ -2,6 +2,7 @@ import React from 'react';
 import '../app.css';
 import { getTrivia } from './service';
 import { useNavigate } from 'react-router-dom';
+import { GameEvent, GameNotifier } from './gameNotifier';
 
 export function Play({ user, logout }) {
   const [pause, setPause] = React.useState(true)
