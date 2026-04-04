@@ -121,8 +121,8 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **Backend listens for WebSocket connection** - I did not complete this part of the deliverable.
-- [ ] **Frontend makes WebSocket connection** - I did not complete this part of the deliverable.
-- [ ] **Data sent over WebSocket connection** - I did not complete this part of the deliverable.
-- [ ] **WebSocket data displayed** - I did not complete this part of the deliverable.
-- [ ] **Application is fully functional** - I did not complete this part of the deliverable.
+- [x] **Backend listens for WebSocket connection** - Complete
+- [x] **Frontend makes WebSocket connection** - Complete
+- [x] **Data sent over WebSocket connection** - When a game starts and when a game finishes
+- [x] **WebSocket data displayed** - Displays in bottom left corner of main game screen
+- [x] **Application is fully functional** - Still things that could be improved, but it's a fully functional awesome trivia game!
