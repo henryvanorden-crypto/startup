@@ -15,6 +15,7 @@ export function Play({ user, logout }) {
   const [msg, setMsg] = React.useState('...listening')
   const [questionSet, setQuestionSet] = React.useState(null);
   const [quizDate, setQuizDate] = React.useState(null);
+  const [hasStarted, setHasStarted] = React.useState(false);
 
 React.useEffect(() => {
   async function loadTrivia() {
@@ -104,6 +105,13 @@ const seconds = time % 60
   }
   function playGame(){
     setPause(false)
+    if (!hasStarted) {
+    setHasStarted(true);
+
+    GameNotifier.broadcastEvent(user, GameEvent.Start, {});
+  } else {
+    GameNotifier.broadcastEvent(user, GameEvent.Resume, {});
+  }
     }
   function submit(){
     let newScore = score
@@ -129,7 +137,7 @@ const seconds = time % 60
       Come back tomorrow!
     </>
   );
-
+  GameNotifier.broadcastEvent(user, GameEvent.End, { score: finalScore });
   saveScore(finalScore, finalTime, totalSeconds);
 }
 
