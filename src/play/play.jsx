@@ -32,15 +32,19 @@ React.useEffect(() => {
 }, []);
 
 React.useEffect(() => {
-  const intervalId = setInterval(() => {
-    const names = ['bob', 'sue', 'tim'];
-    const randomName = names[Math.floor(Math.random() * names.length)];
-    const randomCount = Math.floor(Math.random() * 11);
-    const newMsg = `${randomName} scored ${randomCount}`;
-    setMsg(newMsg);
-  }, 2000);
+  const handler = (event) => {
+    if (event.type === GameEvent.Start) {
+      setMsg(`${event.from} started playing`);
+    }
 
-  return () => clearInterval(intervalId);
+    if (event.type === GameEvent.End) {
+      setMsg(`${event.from} finished with score ${event.value.score}`);
+    }
+  };
+
+  GameNotifier.addHandler(handler);
+
+  return () => GameNotifier.removeHandler(handler);
 }, []);
 
 React.useEffect(() => {
